@@ -1,0 +1,12 @@
+{
+  "name": "io.neuston.configurationblocks",
+  "displayName": "Configuration Blocks",
+  "author": "Neuston",
+  "version": "1.0.0",
+  "unity": "2020.3",
+  "description": "Helps you make your code configurable by introducing Configuration Blocks on top of your key-value-store provider (such as a Remote Config solution).",
+  "category": "",
+  "dependencies":
+  {
+  }
+}

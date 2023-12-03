@@ -1,0 +1,14 @@
+{
+	"name": "Neuston.ConfigurationBlocks.Editor.Tests",
+	"references": [
+		"Neuston.ConfigurationBlocks",
+		"Neuston.ConfigurationBlocks.Editor"
+	],
+	"optionalUnityReferences": [
+		"TestAssemblies"
+	],
+	"includePlatforms": [
+		"Editor"
+	],
+	"excludePlatforms": []
+}
