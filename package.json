@@ -4,7 +4,7 @@
   "author": "Neuston",
   "version": "1.0.0",
   "unity": "2020.3",
-  "description": "Helps you make your code configurable by introducing Config Blocks on top of your key-value-store provider (such as a Remote Config solution).",
+  "description": "Config Blocks is a Unity package that helps you make your code configurable by augmenting your key-value-store Remote Config provider (such as Firebase Remote Config or similar).",
   "category": "",
   "dependencies":
   {
