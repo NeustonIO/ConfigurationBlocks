@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
-using Neuston.ConfigurationBlocks;
+using Neuston.ConfigBlocks;
 
 public class FakeRemoteConfig : IRemoteConfig
 {
-    Dictionary<string, string> _dict = new();
+	Dictionary<string, string> _dict = new();
 
-    public bool TryGetValue(string key, out string value)
-    {
-        return _dict.TryGetValue(key, out value);
-    }
+	public bool TryGetValue(string key, out string value)
+	{
+		return _dict.TryGetValue(key, out value);
+	}
 
-    public void Add(string key, string value)
-    {
-        _dict[key] = value;
-    }
+	public void Add(string key, string value)
+	{
+		_dict[key] = value;
+	}
 }
