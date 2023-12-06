@@ -104,7 +104,7 @@ public class ConfigurationBlockProviderTests
 			SomeEnum = SomeEnum.EnumValueB,
 		});
 
-		remoteConfig.Add("ExampleConfigBlock", json);
+		remoteConfig.Add("ExampleConfigurationBlock", json);
 	}
 
 	void AndReceivedErrorCallbackWasCalled()
@@ -115,7 +115,7 @@ public class ConfigurationBlockProviderTests
 	void GivenBrokenJsonInRemoteConfig()
 	{
 		var json = "{ 'SomeString': this is borken json XD...";
-		remoteConfig.Add("ExampleConfigBlock", json);
+		remoteConfig.Add("ExampleConfigurationBlock", json);
 	}
 }
 
