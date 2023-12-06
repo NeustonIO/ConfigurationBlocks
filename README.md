@@ -1,46 +1,69 @@
-# Config Blocks
+# Configuration Blocks
 
-## Description
+## Overview
 
-Config Blocks is a Unity package that helps you make your code configurable by augmenting your key-value-store Remote Config provider (such as Firebase Remote Config or similar).
+This Unity package helps you easily configure your Unity app.
 
-You define C# classes that represent configurations for various parts of your app. Config Blocks will use the name of the type as the key to look up a json string value from your Remote Config provider.
-
-You'll always get a valid instance of the type you requested. If no json string value is found, Config Blocks will default-construct the type. This makes it easy to add new configurations to your app without having to add control flow behavior depending if the Remote Config provider has json for a given key or not.
-
-## Usage
-
-### 1. Connect your Remote Config solution
-
-Example using Firebase Remote Config:
-```csharp
-class FirebaseRemoteConfig : ConfigBlocks.IRemoteConfig
-{
-    public bool TryGetValue(string key, out string value)
-    {
-        // You would add code here to check if the key exists
-        return Firebase.RemoteConfig.FirebaseRemoteConfig.GetValue(key).StringValue;
-    }
-}
-
-var configBlockProvider = new ConfigBlockProvider(new FirebaseRemoteConfig());
-```
-
-### 2. Create a ConfigBlock
+### You start with this:
 
 ```csharp
-class StartPageConfigBlock
+class StartPageConfigurationBlock
 {
     public string MessageOfTheDay;
     public string BackgroundImageUrl;
 }
+
+void CreateStartPage()
+{
+    var config = configurationBlockProvider.Get<StartPageConfigurationBlock>();
+
+    SetBackgroundImage(config.BackgroundImageUrl);
+    ShowMessage(config.MessageOfTheDay);
+}
 ```
 
-### 3. Get the ConfigBlock
+### Then if you want Remote Config:
+
+Connect your Remote Config provider, such as Firebase Remote Config:
 
 ```csharp
-var configBlock = configBlockProvider.Get<StartPageConfigBlock>();
-ShowMessage(configBlock.MessageOfTheDay);
+class FirebaseRemoteConfigAdapter : ConfigurationBlocks.IRemoteConfigAdapter
+{
+    public bool TryGetValue(string key, out string value)
+    {
+        value = Firebase.RemoteConfig.FirebaseRemoteConfig.GetValue(key).StringValue;
+        return true;
+    }
+}
+
+var configurationBlockProvider = new ConfigurationBlockProvider(new FirebaseRemoteConfigAdapter());
 ```
 
-What actually happens there 👆 is that Config Blocks will look up the json string value for the key `"StartPageConfigBlock"` from your Remote Config provider. If it exists, it will deserialize the json value into a `StartPageConfigBlock` instance using Unity's built-in JsonUtility. If it doesn't exist, it will default-construct a `StartPageConfigBlock` instance.
+Then, in your Remote Config provider, add a json string value for the key `"StartPageConfigurationBlock"`:
+
+```json
+{
+    "MessageOfTheDay": "Welcome to my app",
+    "BackgroundImageUrl": "https://example.com/background.png"
+}
+```
+
+### How it works
+
+What actually happens behind the scenes is that Configuration Blocks will look up the json string value for key=NameOfYourConfigurationBlock from your Remote Config provider. If it exists, it will deserialize the json value into a an instance of your block's type using Unity's built-in JsonUtility. If it doesn't exist, it will default-construct a an instance.
+
+### Custom keys for Configuration Blocks
+
+You can implement your own `ConfigurationBlocks.IKeyProvider` to customize the key used to look up the json string value from your Remote Config provider.
+
+```csharp
+class CustomKeyProvider : ConfigurationBlocks.IKeyProvider
+{
+    public string GetKey<T>()
+    {
+        return typeof(T).Name + "Config";
+    }
+}
+
+var configurationBlockProvider = new ConfigurationBlockProvider(keyProvider: new CustomKeyProvider());
+```
