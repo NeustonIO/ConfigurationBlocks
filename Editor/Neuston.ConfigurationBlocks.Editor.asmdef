@@ -1,7 +1,7 @@
 {
     "name": "Neuston.ConfigurationBlocks.Editor",
     "rootNamespace": "",
-    "references": [],
+    "references": ["GUID:d3de0e1716e210543a3e55f7146fc012"],
     "includePlatforms": [
         "Editor"
     ],

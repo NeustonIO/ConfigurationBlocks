@@ -6,7 +6,7 @@ public class ConfigurationBlockProviderTests
 {
 	ConfigurationBlockProvider configurationBlockProvider;
 	FakeRemoteConfig remoteConfig;
-	ExampleConfigBlock returnedConfigBlock;
+	ExampleConfigurationBlock returnedConfigurationBlock;
 	bool receivedErrorCallback;
 
 	[SetUp]
@@ -50,8 +50,8 @@ public class ConfigurationBlockProviderTests
 	[Test]
 	public void ConfigBlockReferencesAreReusedForPerformance()
 	{
-		var a = configurationBlockProvider.Get<ExampleConfigBlock>();
-		var b = configurationBlockProvider.Get<ExampleConfigBlock>();
+		var a = configurationBlockProvider.Get<ExampleConfigurationBlock>();
+		var b = configurationBlockProvider.Get<ExampleConfigurationBlock>();
 
 		Assert.AreEqual(a, b);
 	}
@@ -59,21 +59,21 @@ public class ConfigurationBlockProviderTests
 	[Test]
 	public void CachedConfigBlocksCanBeCleared()
 	{
-		var a = configurationBlockProvider.Get<ExampleConfigBlock>();
+		var a = configurationBlockProvider.Get<ExampleConfigurationBlock>();
 		configurationBlockProvider.ClearCache();
-		var b = configurationBlockProvider.Get<ExampleConfigBlock>();
+		var b = configurationBlockProvider.Get<ExampleConfigurationBlock>();
 
 		Assert.AreNotEqual(a, b);
 	}
 
 	void WhenGetIsCalled()
 	{
-		returnedConfigBlock = configurationBlockProvider.Get<ExampleConfigBlock>();
+		returnedConfigurationBlock = configurationBlockProvider.Get<ExampleConfigurationBlock>();
 	}
 
 	void ThenDefaultConstructedConfigBlockIsReturned()
 	{
-		var c = returnedConfigBlock;
+		var c = returnedConfigurationBlock;
 
 		Assert.AreEqual(1234, c.SomeInt);
 		Assert.AreEqual(1.234f, c.SomeFloat);
@@ -84,7 +84,7 @@ public class ConfigurationBlockProviderTests
 
 	void ThenConfigBlockWithValuesFromJsonIsReturned()
 	{
-		var c = returnedConfigBlock;
+		var c = returnedConfigurationBlock;
 
 		Assert.AreEqual(2048, c.SomeInt);
 		Assert.AreEqual(777.7f, c.SomeFloat);
@@ -95,7 +95,7 @@ public class ConfigurationBlockProviderTests
 
 	void GivenRemoteConfigHasJsonForConfigBlock()
 	{
-		var json = JsonUtility.ToJson(new ExampleConfigBlock()
+		var json = JsonUtility.ToJson(new ExampleConfigurationBlock()
 		{
 			SomeInt = 2048,
 			SomeFloat = 777.7f,
@@ -125,7 +125,7 @@ public enum SomeEnum
 	EnumValueB
 }
 
-public class ExampleConfigBlock
+public class ExampleConfigurationBlock : ConfigurationBlock
 {
 	public int SomeInt = 1234;
 	public float SomeFloat = 1.234f;

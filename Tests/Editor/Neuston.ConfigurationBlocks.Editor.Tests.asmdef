@@ -1,8 +1,8 @@
 {
 	"name": "Neuston.ConfigurationBlocks.Editor.Tests",
 	"references": [
-		"Neuston.ConfigurationBlocks",
-		"Neuston.ConfigurationBlocks.Editor"
+		"GUID:d3de0e1716e210543a3e55f7146fc012",
+		"GUID:8ee79d99042ba024ebb52ba60c858f69"
 	],
 	"optionalUnityReferences": [
 		"TestAssemblies"

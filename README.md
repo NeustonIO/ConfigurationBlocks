@@ -7,7 +7,7 @@ Configuration Blocks provides a fast and easy way to configure your app both loc
 ### You start with this:
 
 ```csharp
-class StartPageConfigurationBlock
+class StartPageConfigurationBlock : ConfigurationBlock
 {
     public string MessageOfTheDay;
     public string BackgroundImageUrl;
@@ -67,3 +67,11 @@ class CustomKeyProvider : ConfigurationBlocks.IKeyProvider
 
 var configurationBlockProvider = new ConfigurationBlockProvider(keyProvider: new CustomKeyProvider());
 ```
+
+### Configuration Blocks Window
+
+Go to `Tools > Neuston > Configuration Blocks` to open the Configuration Blocks window.
+
+![EditorWindowExample.png](.docimages/EditorWindowExample.png)
+
+This window shows you all the Configuration Blocks in your project, and the json string for the default values. The json string can be copied and pasted into your Remote Config provider.

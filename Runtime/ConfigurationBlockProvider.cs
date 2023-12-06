@@ -19,7 +19,7 @@ namespace Neuston.ConfigurationBlocks
 			this.keyProvider = keyProvider ?? new DefaultKeyProvider();
 		}
 
-		public T Get<T>() where T : new()
+		public T Get<T>() where T : ConfigurationBlock, new()
 		{
 			if (cache.TryGetValue(typeof(T), out object cachedValue))
 			{
@@ -54,6 +54,10 @@ namespace Neuston.ConfigurationBlocks
 		{
 			cache.Clear();
 		}
+	}
+
+	public abstract class ConfigurationBlock
+	{
 	}
 
 	public interface IRemoteConfigAdapter
