@@ -1,10 +1,10 @@
-using Neuston.ConfigBlocks;
+using Neuston.ConfigurationBlocks;
 using NUnit.Framework;
 using UnityEngine;
 
-public class ConfigBlockProviderTests
+public class ConfigurationBlockProviderTests
 {
-	ConfigBlockProvider configBlockProvider;
+	ConfigurationBlockProvider configurationBlockProvider;
 	FakeRemoteConfig remoteConfig;
 	ExampleConfigBlock returnedConfigBlock;
 	bool receivedErrorCallback;
@@ -13,8 +13,8 @@ public class ConfigBlockProviderTests
 	public void Setup()
 	{
 		remoteConfig = new FakeRemoteConfig();
-		configBlockProvider = new ConfigBlockProvider(remoteConfig);
-		configBlockProvider.FailedToParseJson += () => receivedErrorCallback = true;
+		configurationBlockProvider = new ConfigurationBlockProvider(remoteConfig);
+		configurationBlockProvider.FailedToParseJson += () => receivedErrorCallback = true;
 		receivedErrorCallback = false;
 	}
 
@@ -50,8 +50,8 @@ public class ConfigBlockProviderTests
 	[Test]
 	public void ConfigBlockReferencesAreReusedForPerformance()
 	{
-		var a = configBlockProvider.Get<ExampleConfigBlock>();
-		var b = configBlockProvider.Get<ExampleConfigBlock>();
+		var a = configurationBlockProvider.Get<ExampleConfigBlock>();
+		var b = configurationBlockProvider.Get<ExampleConfigBlock>();
 
 		Assert.AreEqual(a, b);
 	}
@@ -59,16 +59,16 @@ public class ConfigBlockProviderTests
 	[Test]
 	public void CachedConfigBlocksCanBeCleared()
 	{
-		var a = configBlockProvider.Get<ExampleConfigBlock>();
-		configBlockProvider.ClearCache();
-		var b = configBlockProvider.Get<ExampleConfigBlock>();
+		var a = configurationBlockProvider.Get<ExampleConfigBlock>();
+		configurationBlockProvider.ClearCache();
+		var b = configurationBlockProvider.Get<ExampleConfigBlock>();
 
 		Assert.AreNotEqual(a, b);
 	}
 
 	void WhenGetIsCalled()
 	{
-		returnedConfigBlock = configBlockProvider.Get<ExampleConfigBlock>();
+		returnedConfigBlock = configurationBlockProvider.Get<ExampleConfigBlock>();
 	}
 
 	void ThenDefaultConstructedConfigBlockIsReturned()
@@ -118,7 +118,6 @@ public class ConfigBlockProviderTests
 		remoteConfig.Add("ExampleConfigBlock", json);
 	}
 }
-
 
 public enum SomeEnum
 {

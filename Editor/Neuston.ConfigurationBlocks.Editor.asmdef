@@ -1,5 +1,5 @@
 {
-    "name": "Neuston.ConfigBlocks.Editor",
+    "name": "Neuston.ConfigurationBlocks.Editor",
     "rootNamespace": "",
     "references": [],
     "includePlatforms": [
