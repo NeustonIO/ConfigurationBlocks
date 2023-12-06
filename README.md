@@ -2,7 +2,7 @@
 
 ## Overview
 
-This Unity package helps you easily configure your Unity app.
+Configuration Blocks provides a fast and easy way to configure your app both locally and remotely.
 
 ### You start with this:
 
